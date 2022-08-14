@@ -53,9 +53,14 @@ spec:
           volumeMounts:
             - mountPath: /init-jackett
               name: init-files-jackett
-            - mountPath: /jackett-config
-              name: mediaserver-volume
+          {{ if .Values.jackett.volume }}
+            - name: {{ .Values.jackett.volume.name }}
+              mountPath: /jackett-config
+          {{ else }}
+            - name: mediaserver-volume
+              mountPath: /jackett-config
               subPath: "{{ .Values.general.storage.subPaths.config }}/jackett/Jackett"
+          {{ end }}
           securityContext:
             runAsUser: {{ .Values.general.puid }}
             runAsGroup: {{ .Values.general.pgid }}
@@ -76,9 +81,14 @@ spec:
               containerPort: {{ .Values.jackett.container.port }}
               protocol: TCP
           volumeMounts:
+          {{ if .Values.jackett.volume }}
+            - name: {{ .Values.jackett.volume.name }}
+              mountPath: /config
+          {{ else }}
             - name: mediaserver-volume
               mountPath: "/config"
               subPath: "{{ .Values.general.storage.subPaths.config }}/jackett"
+          {{ end }}
           {{- with .Values.jackett.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -91,6 +101,11 @@ spec:
         {{ else }}
         - name: mediaserver-volume
           {{- toYaml .Values.general.storage.volumes | nindent 10 }}
+        {{ end }}
+        {{ if .Values.jackett.volume }}
+        - name: {{ .Values.jackett.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.jackett.volume.name }}
         {{ end }}
         - name: init-files-jackett
           configMap:
