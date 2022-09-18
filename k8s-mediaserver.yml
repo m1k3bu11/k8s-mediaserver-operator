@@ -40,7 +40,12 @@ spec:
         enabled: false
         secretName: ""
     resources: {}
-    volume: {}
+    volume: {
+      name: pvc-sonarr-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
+    }
 
   radarr:
     enabled: true
@@ -60,7 +65,12 @@ spec:
         enabled: false
         secretName: ""
     resources: {}
-    volume: {}
+    volume: {
+      name: pvc-radarr-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
+    }
       
   jackett:
     enabled: true
@@ -80,7 +90,12 @@ spec:
         enabled: false
         secretName: ""
     resources: {}
-    volume: {}
+    volume: {
+      name: pvc-jackett-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
+    }
     
   transmission:
     enabled: true
@@ -114,7 +129,12 @@ spec:
         username: ""
         password: ""
     resources: {}
-    volume: {}
+    volume: {
+      name: pvc-transmission-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
+    }
 
   sabnzbd:
     enabled: true
@@ -142,7 +162,12 @@ spec:
         enabled: false
         secretName: ""
     resources: {}
-    volume: {}
+    volume: {
+      name: pvc-sonarr-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
+    }
 
   plex:
     enabled: false
