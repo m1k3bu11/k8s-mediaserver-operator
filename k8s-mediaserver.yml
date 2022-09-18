@@ -41,10 +41,10 @@ spec:
         secretName: ""
     resources: {}
     volume: {
-      name: "pvc-sonarr-config",
-      storageClassName: "nfs-client",
-      accessModes: "ReadWriteOnce",
-      storage: "5Gi"
+      name: pvc-sonarr-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
     }
 
   radarr:
