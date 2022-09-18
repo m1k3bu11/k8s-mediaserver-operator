@@ -53,15 +53,10 @@ spec:
           command: ["/init-radarr/init-radarr.sh"]
           volumeMounts:
             - mountPath: /init-radarr
-              name: init-files-radarr
-          {{ if .Values.radarr.volume }}
-            - name: {{ .Values.radarr.volume.name }}
-              mountPath: /radarr-config
-          {{ else }}
-            - name: mediaserver-volume
-              mountPath: /radarr-config
+              name: init-files-radarr 
+            - mountPath: /radarr-config
+              name: mediaserver-volume
               subPath: "{{ .Values.general.storage.subPaths.config }}/radarr"
-          {{ end }}
           securityContext:
             runAsUser: {{ .Values.general.puid }}
             runAsGroup: {{ .Values.general.pgid }}
@@ -82,14 +77,9 @@ spec:
               containerPort: {{ .Values.radarr.container.port }}
               protocol: TCP
           volumeMounts: 
-          {{ if .Values.radarr.volume }}
-            - name: {{ .Values.radarr.volume.name }}
-              mountPath: /config
-          {{ else }}
             - name: mediaserver-volume
               mountPath: "/config"
               subPath: "{{ .Values.general.storage.subPaths.config }}/radarr"
-          {{ end }}
             - name: mediaserver-volume
               mountPath: "/downloads"
               subPath: "{{ .Values.general.storage.subPaths.downloads }}"
@@ -108,11 +98,6 @@ spec:
         {{ else }}
         - name: mediaserver-volume
           {{- toYaml .Values.general.storage.volumes | nindent 10 }}
-        {{ end }}
-        {{ if .Values.radarr.volume }}
-        - name: {{ .Values.radarr.volume.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.radarr.volume.name }}
         {{ end }}
         - name: init-files-radarr
           configMap:

@@ -15,7 +15,7 @@ general:
     customVolume: false  #set to true if not using a PVC (must provide volume below)
     pvcName: mediaserver-pvc
     size: 5Gi
-    pvcStorageClass: ""
+    pvcStorageClass: []
     # the path starting from the top level of the pv you're passing. If your share is server.local/share/, then tv is server.local/share/media/tv
     subPaths:
       tv: media/tv
@@ -48,16 +48,6 @@ sonarr:
       enabled: false
       secretName: ""
   resources: {}
-  volume: {}
-    #name: pvc-sonarr-config
-    #storageClassName: longhorn
-    #annotations:
-    #  my-annotation/test: my-value
-    #labels:
-    #  my-label/test: my-other-value
-    #accessModes: ReadWriteOnce
-    #storage: 5Gi
-    #selector: {}
 
 radarr:
   enabled: true
@@ -79,14 +69,6 @@ radarr:
       enabled: false
       secretName: ""
   resources: {}
-  volume: {}
-    #name: pvc-radarr-config
-    #storageClassName: longhorn
-    #annotations: {}
-    #labels: {}
-    #accessModes: ReadWriteOnce
-    #storage: 5Gi
-    #selector: {}
   
 jackett:
   enabled: true
@@ -107,14 +89,6 @@ jackett:
       enabled: false
       secretName: ""
   resources: {}
-  volume: {}
-  #  name: pvc-jackett-config
-  #  storageClassName: longhorn
-  #  annotations: {}
-  #  labels: {}
-  #  accessModes: ReadWriteOnce
-  #  storage: 5Gi
-  #  selector: {}
   
 transmission:
   enabled: true
@@ -150,14 +124,6 @@ transmission:
       username: ""
       password: ""
   resources: {}
-  volume: {}
-  #  name: pvc-transmission-config
-  #  storageClassName: longhorn
-  #  annotations: {}
-  #  labels: {}
-  #  accessModes: ReadWriteOnce
-  #  storage: 5Gi
-  #  selector: {}
 
 sabnzbd:
   enabled: true
@@ -187,14 +153,6 @@ sabnzbd:
       enabled: false
       secretName: ""
   resources: {}
-  volume: {}
-  #  name: pvc-plex-config
-  #  storageClassName: longhorn
-  #  annotations: {}
-  #  labels: {}
-  #  accessModes: ReadWriteOnce
-  #  storage: 5Gi
-  #  selector: {}
 
 plex:
   enabled: true
@@ -222,12 +180,3 @@ plex:
   #  requests:
   #    cpu: 100m
   #    memory: 100Mi
-  volume: {}
-  #  name: pvc-plex-config
-  #  storageClassName: longhorn
-  #  annotations: {}
-  #  labels: {}
-  #  accessModes: ReadWriteOnce
-  #  storage: 5Gi
-  #  selector: {}
-

@@ -356,14 +356,9 @@ spec:
           volumeMounts:
             - mountPath: /init-sabnzbd
               name: init-files-sabnzbd 
-          {{ if .Values.sabnzbd.volume }}
-            - name: {{ .Values.sabnzbd.volume.name }}
-              mountPath: /sabnzbd-config
-          {{ else }}
-            - name: mediaserver-volume
-              mountPath: "/sabnzbd-config"
+            - mountPath: /sabnzbd-config
+              name: mediaserver-volume
               subPath: "{{ .Values.general.storage.subPaths.config }}/sabnzbd"
-          {{ end }}
           securityContext:
             runAsUser: {{ .Values.general.puid }}
             runAsGroup: {{ .Values.general.pgid }}
@@ -387,14 +382,9 @@ spec:
               containerPort: {{ .Values.sabnzbd.container.port.https }}
               protocol: TCP
           volumeMounts:
-          {{ if .Values.sabnzbd.volume }}
-            - name: {{ .Values.sabnzbd.volume.name }}
-              mountPath: /config
-          {{ else }}
             - name: mediaserver-volume
               mountPath: "/config"
               subPath: "{{ .Values.general.storage.subPaths.config }}/sabnzbd"
-          {{ end }}
             - name: mediaserver-volume
               mountPath: "/downloads"
               subPath: "{{ .Values.general.storage.subPaths.downloads }}"
@@ -410,11 +400,6 @@ spec:
         {{ else }}
         - name: mediaserver-volume
           {{- toYaml .Values.general.storage.volumes | nindent 10 }}
-        {{ end }}
-        {{ if .Values.sabnzbd.volume }}
-        - name: {{ .Values.sabnzbd.volume.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.sabnzbd.volume.name }}
         {{ end }}
         - name: init-files-sabnzbd
           configMap:
