@@ -53,9 +53,14 @@ spec:
           volumeMounts:
             - mountPath: /init-sonarr 
               name: init-files-sonarr
-            - mountPath: /sonarr-config
-              name: mediaserver-volume
+          {{ if .Values.sonarr.volume }}
+            - name: {{ .Values.sonarr.volume.name }}
+              mountPath: /sonarr-config
+          {{ else }}
+            - name: mediaserver-volume
+              mountPath: /sonarr-config
               subPath: "{{ .Values.general.storage.subPaths.config }}/sonarr"
+          {{ end }}
           securityContext:
             runAsUser: {{ .Values.general.puid }}
             runAsGroup: {{ .Values.general.pgid }}
@@ -76,9 +81,14 @@ spec:
               containerPort: {{ .Values.sonarr.container.port }}
               protocol: TCP
           volumeMounts: 
+          {{ if .Values.sonarr.volume }}
+            - name: {{ .Values.sonarr.volume.name }}
+              mountPath: /config
+          {{ else }}
             - name: mediaserver-volume
               mountPath: "/config"
               subPath: "{{ .Values.general.storage.subPaths.config }}/sonarr"
+          {{ end }}
             - name: mediaserver-volume
               mountPath: "/downloads"
               subPath: "{{ .Values.general.storage.subPaths.downloads }}"
@@ -97,6 +107,11 @@ spec:
         {{ else }}
         - name: mediaserver-volume
           {{- toYaml .Values.general.storage.volumes | nindent 10 }}
+        {{ end }}
+        {{ if .Values.sonarr.volume }}
+        - name: {{ .Values.sonarr.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.sonarr.volume.name }}
         {{ end }}
         - name: init-files-sonarr
           configMap:
