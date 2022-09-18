@@ -66,10 +66,10 @@ spec:
         secretName: ""
     resources: {}
     volume: {
-      name: "pvc-radarr-config",
-      storageClassName: "nfs-client",
-      accessModes: "ReadWriteOnce",
-      storage: "5Gi"
+      name: pvc-radarr-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
     }
       
   jackett:
@@ -91,10 +91,10 @@ spec:
         secretName: ""
     resources: {}
     volume: {
-      name: "pvc-jackett-config",
-      storageClassName: "nfs-client",
-      accessModes: "ReadWriteOnce",
-      storage: "5Gi"
+      name: pvc-jackett-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
     }
     
   transmission:
@@ -130,10 +130,10 @@ spec:
         password: ""
     resources: {}
     volume: {
-      name: "pvc-transmission-config",
-      storageClassName: "nfs-client",
-      accessModes: "ReadWriteOnce",
-      storage: "5Gi"
+      name: pvc-transmission-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
     }
 
   sabnzbd:
@@ -163,10 +163,10 @@ spec:
         secretName: ""
     resources: {}
     volume: {
-      name: "pvc-sonarr-config",
-      storageClassName: "nfs-client",
-      accessModes: "ReadWriteOnce",
-      storage: "5Gi"
+      name: pvc-sonarr-config
+      storageClassName: nfs-client
+      accessModes: ReadWriteOnce
+      storage: 5Gi
     }
 
   plex:
