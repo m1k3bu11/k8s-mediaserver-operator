@@ -11,9 +11,9 @@ spec:
     pgid: 1000
     storage:
       customVolume: false
-      pvcName: mediaserver-pvc
+      pvcName: ""
       size: 5Gi
-      pvcStorageClass: ""
+      pvcStorageClass: "nfs-client"
       subPaths:
         tv: media/tv
         movies: media/movies
@@ -145,7 +145,7 @@ spec:
     volume: {}
 
   plex:
-    enabled: true
+    enabled: false
     claim: "CHANGEME"
     replicaCount: 1
     container: 
